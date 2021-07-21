@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Key : MonoBehaviour {
 
-	// TODO: Create variables to reference the game objects we need access to
-	// Declare a GameObject named 'keyPoofPrefab' and assign the 'KeyPoof' prefab to the field in Unity
-	// Declare a Door named 'door' and assign the top level 'Door' game object to the field in Unity
+    // TODO: Create variables to reference the game objects we need access to
+    // Declare a GameObject named 'keyPoofPrefab' and assign the 'KeyPoof' prefab to the field in Unity
+    // Declare a Door named 'door' and assign the top level 'Door' game object to the field in Unity
 
-
-	void Update () {
-		// OPTIONAL-CHALLENGE: Animate the key rotating
-		// TIP: You could use a method from the Transform class
-	}
+    public GameObject keyPoofPrefab;
+    public Door door;
+    
+    void Update () {
+        // OPTIONAL-CHALLENGE: Animate the key rotating
+        // TIP: You could use a method from the Transform class
+        transform.Rotate(0, -120.5f * Time.deltaTime, 0, Space.World);
+    }
 
 
 	public void OnKeyClicked () {
@@ -25,9 +28,13 @@ public class Key : MonoBehaviour {
 		// Prints to the console when the method is called
 		Debug.Log ("'Key.OnKeyClicked()' was called");
 
-		// TODO: Unlock the door, display the poof effect, and remove the key from the scene
-		// Use 'door' to call the Door.Unlock() method
-		// Use Instantiate() to create a clone of the 'KeyPoof' prefab at this coin's position and with the 'KeyPoof' prefab's rotation
-		// Use Destroy() to delete the key after for example 0.5 seconds
-	}
+        // TODO: Unlock the door, display the poof effect, and remove the key from the scene
+        // Use 'door' to call the Door.Unlock() method
+        // Use Instantiate() to create a clone of the 'KeyPoof' prefab at this coin's position and with the 'KeyPoof' prefab's rotation
+        // Use Destroy() to delete the key after for example 0.5 seconds
+
+        Object.Instantiate(keyPoofPrefab, this.transform.position, this.transform.rotation);
+        door.Unlock();
+        Object.Destroy(gameObject, 0.5f);
+    }
 }
